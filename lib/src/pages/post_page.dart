@@ -1,9 +1,7 @@
 import 'package:easystory/src/drawer.dart';
-// import 'package:easystory/src/models/album.dart';
 import 'package:flutter/material.dart';
 import 'package:easystory/src/endpoints/endpoints.dart';
 import 'package:http/http.dart' as http;
-import 'dart:async';
 import 'dart:convert';
 
 TextEditingController postText = new TextEditingController();
@@ -80,17 +78,6 @@ class AddDetails extends StatefulWidget {
 class _AddDetailsState extends State<AddDetails> {
   bool isChecked = false;
   String url = "https://easystory-backend.herokuapp.com/api/";
-  // List dataPosts = [];
-  Future<String> postNewPost(Map data) async {
-    var response =
-        await http.post(Uri.parse(url + "posts"), headers: headers(), body: data);
-
-    setState(() {
-      var body = json.encode(data);
-
-    });
-    return data.toString();
-  }
 
   @override
   Widget build(BuildContext context) {
