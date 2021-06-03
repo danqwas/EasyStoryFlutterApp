@@ -77,6 +77,8 @@ class AddDetails extends StatefulWidget {
 
 class _AddDetailsState extends State<AddDetails> {
   bool isChecked = false;
+  bool titleValid = true;
+  bool descValid = true;
   String url = "https://easystory-backend.herokuapp.com/api/";
 
   @override
@@ -94,7 +96,8 @@ class _AddDetailsState extends State<AddDetails> {
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Inserte título',
-            hintText: 'Título'
+            hintText: 'Título',
+            errorText: titleValid ? null : 'Por favor, ingrese un título',
           ),
         ),
         Divider(),
@@ -105,7 +108,8 @@ class _AddDetailsState extends State<AddDetails> {
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Inserte descripción',
-            hintText: 'Descripción'
+            hintText: 'Descripción',
+            errorText: descValid ? null : 'Por favor, ingrese una descripción',
           ),
         ),
         Divider(),
@@ -130,46 +134,53 @@ class _AddDetailsState extends State<AddDetails> {
         Divider(),
         Center(
           child: ElevatedButton(
-            onPressed: () { showDialog<String>(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                  title: Text('¿Seguro que deseas publicar?'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text('Regresar'),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        postBody = {
-                           'title': titleText.text.toString(),
-                           'description': descriptionText.text.toString(),
-                           'content': postText.text.toString()
-                        };
-                        var body = json.encode(postBody); 
-                        http.Response response = await http.post(Uri.parse(url + "users/1/posts"), headers: headers(), body: body);
-                        Navigator.pop(context);
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: Text('Publicación realizada'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.pushNamed(context, '/feed');
-                                },
-                                child: Text('OK'),
-                                ),
-                            ],
-                          ),
-                        );
-                      },
-                      child: Text('Publicar'),
-                    ),
-                  ],
-                ),
-              ); 
+            onPressed: () {
+              setState(() {
+                    descriptionText.text.isNotEmpty ? descValid = true : descValid = false;
+                    titleText.text.isNotEmpty ? titleValid = true : titleValid = false;
+                  });
+              if (titleValid && descValid) {
+                showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                    title: Text('¿Seguro que deseas publicar?'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text('Regresar'),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          postBody = {
+                            'title': titleText.text.toString(),
+                            'description': descriptionText.text.toString(),
+                            'content': postText.text.toString()
+                          };
+                          var body = json.encode(postBody); 
+                          http.Response response = await http.post(Uri.parse(url + "users/1/posts"), headers: headers(), body: body);
+                          Navigator.pop(context);
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: Text('Publicación realizada'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Navigator.pushNamed(context, '/feed');
+                                  },
+                                  child: Text('OK'),
+                                  ),
+                              ],
+                            ),
+                          );
+                        },
+                        child: Text('Publicar'),
+                      ),
+                    ],
+                  ),
+                ); 
+              }
             },
             child: const Text('Publicar')
           )
