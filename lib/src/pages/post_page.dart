@@ -1,28 +1,16 @@
 import 'package:easystory/src/drawer.dart';
 // import 'package:easystory/src/models/album.dart';
 import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
-// import 'dart:async';
-// import 'dart:convert';
+import 'package:easystory/src/endpoints/endpoints.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 TextEditingController postText = new TextEditingController();
 TextEditingController descriptionText = new TextEditingController();
 TextEditingController titleText = new TextEditingController();
 
-// Future<Album> fetchAlbum() async {
-//   final response =
-//       await http.get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
-
-//   if (response.statusCode == 200) {
-//     // If the server did return a 200 OK response,
-//     // then parse the JSON.
-//     return Album.fromJson(jsonDecode(response.body));
-//   } else {
-//     // If the server did not return a 200 OK response,
-//     // then throw an exception.
-//     throw Exception('Failed to load album');
-//   }
-// }
+Map postBody = new Map();
 
 class PostPage extends StatefulWidget {
   @override
@@ -30,7 +18,6 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
-  // Future<Album> futureAlbum;
   bool isValid = true;
 
   
@@ -51,20 +38,6 @@ class _PostPageState extends State<PostPage> {
         padding: EdgeInsets.all(40.0),
         child: ListView(children: <Widget>[
           Divider(),
-          // FutureBuilder<Album>(
-          //   future: futureAlbum,
-          //   builder: (context, snapshot) {
-          //     if (snapshot.hasData) {
-          //       postText.text = snapshot.data.userId.toString();
-          //       return Text('');
-          //     } else if (snapshot.hasError) {
-          //       return Text("${snapshot.error}");
-          //     }
-
-          //     // By default, show a loading spinner.
-          //     return CircularProgressIndicator();
-          //   },
-          // ),
           Divider(),
           TextField(
             controller: postText,
@@ -106,6 +79,18 @@ class AddDetails extends StatefulWidget {
 
 class _AddDetailsState extends State<AddDetails> {
   bool isChecked = false;
+  String url = "https://easystory-backend.herokuapp.com/api/";
+  // List dataPosts = [];
+  Future<String> postNewPost(Map data) async {
+    var response =
+        await http.post(Uri.parse(url + "posts"), headers: headers(), body: data);
+
+    setState(() {
+      var body = json.encode(data);
+
+    });
+    return data.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +153,14 @@ class _AddDetailsState extends State<AddDetails> {
                       child: Text('Regresar'),
                     ),
                     TextButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        postBody = {
+                           'title': titleText.text.toString(),
+                           'description': descriptionText.text.toString(),
+                           'content': postText.text.toString()
+                        };
+                        var body = json.encode(postBody); 
+                        http.Response response = await http.post(Uri.parse(url + "users/1/posts"), headers: headers(), body: body);
                         Navigator.pop(context);
                         showDialog<String>(
                           context: context,
@@ -178,6 +170,7 @@ class _AddDetailsState extends State<AddDetails> {
                               TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
+                                  Navigator.pushNamed(context, '/feed');
                                 },
                                 child: Text('OK'),
                                 ),
