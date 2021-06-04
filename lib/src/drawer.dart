@@ -22,7 +22,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Nueva publicación'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, '/post')
+              Navigator.pushNamed(context, 'post')
             },
           ),
           ListTile(
@@ -30,7 +30,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Feed'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, '/feed')
+              Navigator.pushNamed(context, 'feed')
             },
           ),
           ListTile(
@@ -38,7 +38,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Marcadores'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, '/bookmarks')
+              Navigator.pushNamed(context, 'bookmarks')
             },
           ),
           ListTile(
@@ -46,7 +46,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Hashtags'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, '/hashtags')
+              Navigator.pushNamed(context, 'hashtags')
             },
           ),
           ListTile(
@@ -54,7 +54,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Notificaciones'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, '/notifications')
+              Navigator.pushNamed(context, 'notifications')
             },
           ),
           ListTile(
@@ -62,7 +62,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Perfil'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, '/profile')
+              Navigator.pushNamed(context, 'profile')
             },
           ),
           ListTile(
@@ -70,7 +70,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Configuración'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, '/settings')
+              Navigator.pushNamed(context, 'settings')
             },
           ),
         ],
@@ -78,3 +78,4 @@ class MyDrawer extends StatelessWidget {
     );
   }
 }
+
