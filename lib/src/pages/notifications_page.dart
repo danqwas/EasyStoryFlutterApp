@@ -8,7 +8,6 @@ class NotificationPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('EasyStory'),
       ),
-      drawer: MyDrawer(),
       body: Center(
         child: Text('No tienes notificaciones nuevas.'),
       ),

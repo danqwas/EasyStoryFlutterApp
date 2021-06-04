@@ -20,8 +20,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case 'notifications':
       return MaterialPageRoute(builder: (context) => NotificationPage());
     case 'profile':
-      return MaterialPageRoute(
-          builder: (context) => ProfilePage());
+      return MaterialPageRoute(builder: (context) => ProfilePage());
     case 'settings':
       return MaterialPageRoute(builder: (context) => SettingsPage());
     default:
