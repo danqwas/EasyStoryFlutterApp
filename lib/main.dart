@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "EasyStory Flutter App",
-      initialRoute: 'feed',
+      initialRoute: 'login',
       onGenerateRoute: router.generateRoute,
     );
   }

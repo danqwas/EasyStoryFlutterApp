@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var userId = 1;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -62,7 +63,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Perfil'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, 'profile')
+              Navigator.pushNamed(context, 'profile', arguments: userId)
             },
           ),
           ListTile(
