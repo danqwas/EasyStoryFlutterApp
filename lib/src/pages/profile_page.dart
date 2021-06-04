@@ -1,3 +1,4 @@
+import 'package:easystory/src/drawer.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -7,6 +8,7 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('EasyStory'),
       ),
+      drawer: MyDrawer(),
       body: Center(
         child: Text('Profile Page'),
       ),

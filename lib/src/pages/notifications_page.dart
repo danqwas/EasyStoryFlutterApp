@@ -1,3 +1,4 @@
+import 'package:easystory/src/drawer.dart';
 import 'package:flutter/material.dart';
 
 class NotificationPage extends StatelessWidget {

@@ -1,3 +1,4 @@
+import 'package:easystory/src/drawer.dart';
 import 'package:flutter/material.dart';
 
 class BookmarkPage extends StatelessWidget {
@@ -7,6 +8,7 @@ class BookmarkPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('EasyStory'),
       ),
+      drawer: MyDrawer(),
       body: Center(
         child: Text('No tienes marcadores.'),
       ),
