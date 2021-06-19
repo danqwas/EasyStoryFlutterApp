@@ -30,7 +30,6 @@ class _PostDetailsState extends State<PostDetails> {
     var userResponse = await http.get(Uri.parse(url() + "users/$authorId"), headers: headers());
     setState(() {
       var extractUserData = json.decode(userResponse.body);
-      print("GAAAAAAAAAAAAAAA");
       print(extractUserData);
       authorName = extractUserData['username'].toString();
     });
