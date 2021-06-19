@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../drawer.dart';
+import 'post_details.dart';
 
 class BookmarkPage extends StatefulWidget {
    final int argument;
@@ -81,7 +82,7 @@ class BookmarkPage extends StatefulWidget {
                           ),
                           ListTile(
                             title: Text(dataBookmarks[i]['title']),
-                            subtitle: Text(dataBookmarks[i]['content']),
+                            subtitle: Text(dataBookmarks[i]['description']),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -120,8 +121,16 @@ class BookmarkPage extends StatefulWidget {
                                   )
                                 );
                               }, icon: Icon(Icons.delete)),
-                              TextButton(onPressed: () {}, child: Text('Detalles')),
-                              TextButton(onPressed: () {}, child: Text('Leer')),
+                              TextButton(onPressed: () {
+                                Navigator.push(context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PostDetails(
+                                      argument: widget.argument, 
+                                      postId: dataBookmarks[i]['id']
+                                    )
+                                  )
+                                );
+                             }, child: Text('Leer')),
                             ],
                           )
                         ],

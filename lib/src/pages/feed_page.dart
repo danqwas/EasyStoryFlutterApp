@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:easystory/src/endpoints/endpoints.dart';
+import 'package:easystory/src/pages/post_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -89,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ListTile(
                         title: Text(dataPosts[i]['title']),
-                        subtitle: Text(dataPosts[i]['content']),
+                        subtitle: Text(dataPosts[i]['description']),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -115,8 +116,16 @@ class _HomePageState extends State<HomePage> {
                               dataPosts[i]['isBookmarked'] = !(dataPosts[i]['isBookmarked']);
                             });
                           }, icon: getIcon(dataPosts[i]['isBookmarked'])),
-                          TextButton(onPressed: () {}, child: Text('Detalles')),
-                          TextButton(onPressed: () {}, child: Text('Leer')),
+                          TextButton(onPressed: () {
+                            Navigator.push(context,
+                              MaterialPageRoute(
+                                builder: (context) => PostDetails(
+                                  argument: widget.argument, 
+                                  postId: dataPosts[i]['id']
+                                )
+                              )
+                            );
+                          }, child: Text('Leer')),
                         ],
                       )
                     ],

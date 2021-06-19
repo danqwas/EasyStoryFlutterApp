@@ -23,19 +23,19 @@ class MyDrawer extends StatelessWidget {
                     image: AssetImage('lib/src/images/reading.jpg'))),
           ),
           ListTile(
-            leading: Icon(Icons.edit),
-            title: Text('Nueva publicación'),
-            onTap: () => {
-              Navigator.of(context).pop(),
-              Navigator.pushNamed(context, 'post', arguments: userId)
-            },
-          ),
-          ListTile(
             leading: Icon(Icons.format_list_bulleted),
             title: Text('Feed'),
             onTap: () => {
               Navigator.of(context).pop(),
               Navigator.pushNamed(context, 'feed', arguments: userId)
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text('Nueva publicación'),
+            onTap: () => {
+              Navigator.of(context).pop(),
+              Navigator.pushNamed(context, 'post', arguments: userId)
             },
           ),
           ListTile(
