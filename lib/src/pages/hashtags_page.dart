@@ -10,6 +10,8 @@ int hashtagId;
 List dataHashtags = [];
 
 class HashtagPage extends StatefulWidget {
+  final int argument;
+  const HashtagPage({Key key, this.argument}) : super(key: key);
   @override
   _HashtagPageState createState() => _HashtagPageState();
 }

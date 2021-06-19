@@ -27,7 +27,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Nueva publicación'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, 'post')
+              Navigator.pushNamed(context, 'post', arguments: userId)
             },
           ),
           ListTile(
@@ -51,7 +51,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Hashtags'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, 'hashtags')
+              Navigator.pushNamed(context, 'hashtags', arguments: userId)
             },
           ),
           ListTile(
@@ -59,7 +59,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Notificaciones'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, 'notifications')
+              Navigator.pushNamed(context, 'notifications', arguments: userId)
             },
           ),
           ListTile(
@@ -75,7 +75,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Configuración'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, 'settings')
+              Navigator.pushNamed(context, 'settings', arguments: userId)
             },
           ),
         ],
