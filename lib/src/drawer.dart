@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
+
 class MyDrawer extends StatelessWidget {
+  final int argument;
+  const MyDrawer({ Key key, this.argument }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    var userId = 1;
+    var userId = argument;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -31,7 +35,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Feed'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, 'feed')
+              Navigator.pushNamed(context, 'feed', arguments: userId)
             },
           ),
           ListTile(
@@ -39,7 +43,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Marcadores'),
             onTap: () => {
               Navigator.of(context).pop(),
-              Navigator.pushNamed(context, 'bookmarks')
+              Navigator.pushNamed(context, 'bookmarks', arguments: userId)
             },
           ),
           ListTile(

@@ -7,3 +7,7 @@ Map<String, String> headers() {
   };
   return headers;
 }
+
+String url() {
+  return "https://easystory-backend.herokuapp.com/api/";
+}

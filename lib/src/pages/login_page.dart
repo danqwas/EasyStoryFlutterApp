@@ -100,7 +100,6 @@ class _LoginPageState extends State<LoginPage> {
                         userExists = true;
                         userId = cosa['id'];
                       }
-                      ;
                     }
                     setState(() {
                       userExists ? userValid = true : userValid = false;

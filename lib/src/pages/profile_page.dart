@@ -45,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: Text('Mi Perfil'),
       ),
-      drawer: MyDrawer(),
+      drawer: MyDrawer(argument: widget.argument),
       body: ListView(
         children: [_profilePicture(), _userDescription()],
       ),
@@ -55,8 +55,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _profilePicture() {
     return SizedBox(
       child: Column(
-          //padding: EdgeInsets.only(left: 0, right: 0),
-
           children: [
             Stack(
                 fit: StackFit.passthrough,
