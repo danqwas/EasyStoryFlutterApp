@@ -19,18 +19,18 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case 'feed':
       return MaterialPageRoute(builder: (context) => HomePage(argument: userId));
     case 'post':
-      return MaterialPageRoute(builder: (context) => PostPage());
+      return MaterialPageRoute(builder: (context) => PostPage(argument: userId));
     case 'bookmarks':
       return MaterialPageRoute(builder: (context) => BookmarkPage(argument: userId));
     case 'hashtags':
-      return MaterialPageRoute(builder: (context) => HashtagPage());
+      return MaterialPageRoute(builder: (context) => HashtagPage(argument: userId));
     case 'notifications':
-      return MaterialPageRoute(builder: (context) => NotificationPage());
+      return MaterialPageRoute(builder: (context) => NotificationPage(argument: userId));
     case 'profile':
       return MaterialPageRoute(
           builder: (context) => ProfilePage(argument: userId));
     case 'settings':
-      return MaterialPageRoute(builder: (context) => SettingsPage());
+      return MaterialPageRoute(builder: (context) => SettingsPage(argument: userId));
     default:
       return MaterialPageRoute(builder: (context) => HomePage(argument: userId));
   }

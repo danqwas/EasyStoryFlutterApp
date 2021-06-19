@@ -11,27 +11,21 @@ TextEditingController titleText = new TextEditingController();
 Map postBody = new Map();
 
 class PostPage extends StatefulWidget {
+  final int argument;
+  const PostPage({Key key, this.argument}) : super(key: key);
   @override
   _PostPageState createState() => _PostPageState();
 }
 
 class _PostPageState extends State<PostPage> {
   bool isValid = true;
-
-  
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   futureAlbum = fetchAlbum();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('EasyStory'),
       ),
-      drawer: MyDrawer(),
+      drawer: MyDrawer(argument: widget.argument),
       body: Container(
         padding: EdgeInsets.all(40.0),
         child: ListView(children: <Widget>[
@@ -57,7 +51,7 @@ class _PostPageState extends State<PostPage> {
                   });
                 if (isValid) {
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddDetails()),
+                    MaterialPageRoute(builder: (context) => AddDetails(argument: widget.argument)),
                 );
                 }
               }, 
@@ -71,6 +65,8 @@ class _PostPageState extends State<PostPage> {
 }
 
 class AddDetails extends StatefulWidget {
+  final int argument;
+  const AddDetails({Key key, this.argument}) : super(key: key);
   @override
   _AddDetailsState createState() => _AddDetailsState();
 }
@@ -142,22 +138,30 @@ class _AddDetailsState extends State<AddDetails> {
               if (titleValid && descValid) {
                 showDialog<String>(
                 context: context,
-                builder: (BuildContext context) => AlertDialog(
+                builder: (BuildContext loadContext) => AlertDialog(
                     title: Text('¿Seguro que deseas publicar?'),
                     actions: <Widget>[
                       TextButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () => Navigator.pop(loadContext),
                         child: Text('Regresar'),
                       ),
                       TextButton(
                         onPressed: () async {
+                          Navigator.pop(loadContext);
+                          showDialog<void>(
+                            context: loadContext,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: Center(child:CircularProgressIndicator())
+                            ),
+                          );
                           postBody = {
                             'title': titleText.text.toString(),
                             'description': descriptionText.text.toString(),
                             'content': postText.text.toString()
                           };
                           var body = json.encode(postBody); 
-                          http.Response response = await http.post(Uri.parse(url + "users/1/posts"), headers: headers(), body: body);
+                          http.Response response = await http.post(Uri.parse(url + "users/${widget.argument}/posts"), headers: headers(), body: body);
+                          print(response);
                           Navigator.pop(context);
                           showDialog<String>(
                             context: context,
@@ -167,7 +171,7 @@ class _AddDetailsState extends State<AddDetails> {
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    Navigator.pushNamed(context, '/feed');
+                                    Navigator.pushNamed(context, 'feed', arguments: widget.argument);
                                   },
                                   child: Text('OK'),
                                   ),

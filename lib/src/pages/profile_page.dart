@@ -13,22 +13,23 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  bool isLoaded = false;
   String url = "https://easystory-backend.herokuapp.com/api/";
-  Map<String, dynamic> dataUser = {
-    'username': '',
-    'firstName': '',
-    'lastName': '',
-  };
+  // Map<String, dynamic> dataUser = {
+  //   'username': '',
+  //   'firstName': '',
+  //   'lastName': '',
+  // };
+  var dataUser;
 
   Future<String> getUserById(int id) async {
     var response =
         await http.get(Uri.parse(url + "users/$id"), headers: headers());
-
     setState(() {
       var extractdata = json.decode(response.body);
       dataUser = extractdata;
-      
     });
+    isLoaded = true;
     print(dataUser);
     return response.body.toString();
   }
@@ -78,13 +79,18 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _userDescription() {
-    return Column(
-      children: [
-        Text(dataUser['username'],
-            style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15)),
-        Text(dataUser['firstName'],
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25))
-      ],
-    );
+    if (!isLoaded) {
+      return Center(child:CircularProgressIndicator());
+    }
+    else {
+        return Column(
+        children: [
+          Text(dataUser['username'],
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15)),
+          Text(dataUser['firstName'],
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25))
+        ],
+      );
+    }
   }
 }

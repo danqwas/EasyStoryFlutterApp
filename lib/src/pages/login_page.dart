@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   bool userExists = false;
   bool userValid = true;
   bool passValid = true;
-
+  
   Future<String> getUser() async {
     var response = await http.get(Uri.parse(url + "users"), headers: headers());
 
