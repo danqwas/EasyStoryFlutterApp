@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
             colorBlendMode: BlendMode.darken,
           ),
           ListView(
-            padding: EdgeInsets.only(top: 210),
+            padding: EdgeInsets.only(top: 210, left:40, right:40, bottom:40),
             children: <Widget>[
               Image.asset(
                 'lib/src/images/libro2.png',
@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                         labelStyle:
                             TextStyle(color: Colors.white, fontSize: 20))),
                 child: Container(
-                  padding: EdgeInsets.all(40.0),
+                  padding: EdgeInsets.only(bottom:40.0, top:20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -93,7 +93,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               )),
               Center(
+                
                 child: ElevatedButton(
+                  
                   onPressed: () {
                     for (var cosa in dataUsers) {
                       if (cosa['username'] == userText.text) {
@@ -112,6 +114,14 @@ class _LoginPageState extends State<LoginPage> {
                           arguments: userId);
                     }
                   },
+                  style: ButtonStyle(                                 
+                    minimumSize: MaterialStateProperty.all(Size(400, 50)),
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical:10,horizontal:10)), 
+                    shape: MaterialStateProperty.all(new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0),
+                          )),
+                    
+                  ),
                   child: const Text('Iniciar sesión'),
                 ),
               ),

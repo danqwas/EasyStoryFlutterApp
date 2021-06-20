@@ -49,6 +49,7 @@ class _PostDetailsState extends State<PostDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Leer publicación"),
+        backgroundColor: Colors.black,
       ),
       body: Center(child: _postInfo()),
     );
@@ -60,7 +61,7 @@ class _PostDetailsState extends State<PostDetails> {
     }
     else {
       return Container(
-        padding: EdgeInsets.all(30.0),
+        padding: EdgeInsets.all(20.0),
         child: Column(
           children: [
             Divider(),

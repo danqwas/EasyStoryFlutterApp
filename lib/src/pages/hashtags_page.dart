@@ -40,33 +40,56 @@ class _HashtagPageState extends State<HashtagPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hashtag List"),
+        title: Text("Hashtag List"),        
+        backgroundColor: Colors.black,
       ),
-      body: ListView(
+      body:            
+      ListView(         
         scrollDirection: Axis.vertical,
         shrinkWrap: false,
+        
         children: <Widget>[
           GridView.count(
+            padding: EdgeInsets.all(10),
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             crossAxisCount: 3,
             childAspectRatio: 1.5,
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5,
             children: List.generate(dataHashtags.length, (index) {
+              
               return Center(
+                
                 child: ElevatedButton(
                   onPressed: () {
                     dataPost = [];
                     hashtagId = index + 1;
                     Navigator.push(
                       context,
+                      
                       MaterialPageRoute(
                           builder: (context) => PostHashtagsDetails()),
-                    );
+                    );                    
                   },
-                  child: Text(
-                    ('#' + dataHashtags[index]['name']).toLowerCase(),
-                    style: Theme.of(context).textTheme.headline6,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.grey.shade300),                   
+                    minimumSize: MaterialStateProperty.all(Size(188, 136)),
+                    padding: MaterialStateProperty.all(EdgeInsets.all(20)), 
+                    shape: MaterialStateProperty.all(new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0),
+                          )),
+                    
                   ),
+                  
+                  child: 
+                  Text(
+                    ('#' + dataHashtags[index]['name']).toLowerCase(),
+                    style: TextStyle(
+                        color: Colors.black,
+                      ),
+                  ),
+                  
                 ),
               );
             }),
@@ -107,18 +130,26 @@ class _PostHashtagsDetailsState extends State<PostHashtagsDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Hashtag #' + dataHashtags[hashtagId - 1]['name']),
+        backgroundColor: Colors.black,
       ),
-      body: Container(
-          padding: EdgeInsets.all(40.0),
+      
+      body: Container(                    
           child: ListView.builder(
-            itemCount: dataPost == null ? 0 : dataPost.length,
+            itemCount: dataPost == null ? 0 : dataPost.length,            
             itemBuilder: (BuildContext context, i) {
               return Card(
-                elevation: 10.0,
+                elevation: 1.0,
+                margin: EdgeInsets.only(bottom:2.0,top:14.0,left:15.0,right:15.0),
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                ),
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: Column(
                   children: [
                     Image(
                       image: AssetImage('lib/src/images/gatito.jpg'),
+                      fit: BoxFit.fill,
                     ),
                     ListTile(
                       title: Text(dataPost[i]['title']),

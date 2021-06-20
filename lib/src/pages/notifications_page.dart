@@ -9,6 +9,7 @@ class NotificationPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('EasyStory'),
+        backgroundColor: Colors.black,
       ),
       body: Center(
         child: Text('No tienes notificaciones nuevas.'),

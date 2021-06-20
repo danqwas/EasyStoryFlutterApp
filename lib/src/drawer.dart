@@ -12,12 +12,12 @@ class MyDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
+          DrawerHeader(            
             child: Image(
               image: AssetImage('lib/src/images/logo.png'),
             ),
             decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.black,
                 image: DecorationImage(
                     fit: BoxFit.fill,
                     image: AssetImage('lib/src/images/reading.jpg'))),

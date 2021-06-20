@@ -5,6 +5,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../drawer.dart';
+import 'dart:math';
+
+
+dynamic gatito = [
+    "lib/src/images/gatito.jpg", "lib/src/images/gatito2.jpg", "lib/src/images/gatito3.jpg",
+    "lib/src/images/gatito4.jpg", "lib/src/images/gatito5.jpg"
+  ];
+// generates a new Random object
+final _random = new Random();
+
 
 class HomePage extends StatefulWidget {
   final int argument;
@@ -18,7 +28,9 @@ class _HomePageState extends State<HomePage> {
 
   List dataPosts = [];
   List dataBookmarks = [];
-  List userPosts = [];
+  List userPosts = [];  
+
+  
 
   Future<String> getPosts() async {
     var bookmarkResponse = await http.get(Uri.parse(url() + "users/${widget.argument}/bookmarks"), headers: headers());
@@ -51,11 +63,11 @@ class _HomePageState extends State<HomePage> {
     getPosts();
   }
   Icon getIcon(bool isActive) {
-    if (isActive) {
-      return Icon(Icons.bookmark_added_outlined);
+    if (isActive) { 
+      return Icon(Icons.bookmark_sharp);
     }
     else {
-      return Icon(Icons.bookmark_add_outlined);
+      return Icon(Icons.bookmark_outline_outlined);
     }
   }
 
@@ -64,6 +76,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Feed principal'),
+        backgroundColor: Colors.black,
       ),
       drawer: MyDrawer(argument: widget.argument),
       body: _dataPosts()
@@ -77,16 +90,22 @@ class _HomePageState extends State<HomePage> {
     }
     else{
       return Container(
-        padding: EdgeInsets.all(40.0),
         child: ListView.builder(
         itemCount: dataPosts == null ? 0 : dataPosts.length,
         itemBuilder: (BuildContext context, i){
          return Card(
-                  elevation: 10.0,
+                elevation: 1.0,
+                margin: EdgeInsets.only(bottom:2.0,top:14.0,left:15.0,right:15.0),
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                ),
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: Column(
                     children: [
                       Image(
-                        image: AssetImage('lib/src/images/gatito.jpg'),
+                        image: AssetImage(gatito[_random.nextInt(gatito.length)]),
+                        fit: BoxFit.fill,
                       ),
                       ListTile(
                         title: Text(dataPosts[i]['title']),

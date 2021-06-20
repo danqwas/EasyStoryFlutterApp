@@ -42,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
             colorBlendMode: BlendMode.darken,
           ),
           ListView(
-            padding: EdgeInsets.only(top: 50),
+            padding: EdgeInsets.only(top: 50, left:40, right:40, bottom:40),
             children: <Widget>[
               Image.asset(
                 'lib/src/images/libro2.png',
@@ -58,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         labelStyle:
                             TextStyle(color: Colors.white, fontSize: 20))),
                 child: Container(
-                  padding: EdgeInsets.all(40.0),
+                  padding: EdgeInsets.only(bottom:40.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -208,6 +208,14 @@ class _RegisterPageState extends State<RegisterPage> {
                       Navigator.pushNamed(context, 'login');
                     }
                   },
+                  style: ButtonStyle(                                 
+                    minimumSize: MaterialStateProperty.all(Size(500, 50)),
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical:10,horizontal:10)), 
+                    shape: MaterialStateProperty.all(new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0),
+                          )),
+                    
+                  ),
                   child: const Text('Registrar'),
                 ),
               ),
