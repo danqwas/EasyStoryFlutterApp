@@ -170,8 +170,19 @@ class _PostDetailsState extends State<PostDetails> {
                   print(rating);
                 },
               ),
+              Divider(),
               ElevatedButton(
                 child: Text("Calificar"),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                  minimumSize: MaterialStateProperty.all(Size(400, 50)),
+                  padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 10)),
+                  shape: MaterialStateProperty.all(new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(10.0),
+                  )),
+                ),
                 onPressed: () async {
                   showDialog<void>(
                     context: context,
@@ -204,6 +215,7 @@ class _PostDetailsState extends State<PostDetails> {
               Divider(),
               TextButton(
                 child: Text("Ver comentarios"),
+                style: _style(),
                 onPressed: () {
                   showDialog<void>(
                     context: context,
@@ -238,6 +250,7 @@ class _PostDetailsState extends State<PostDetails> {
                                               children: [
                                                 TextButton(
                                                   child: Text("Comentar"),
+                                                  style: _style(),
                                                   onPressed: () async {
                                                     commentText.text.isNotEmpty
                                                         ? commentValid = true
@@ -286,6 +299,7 @@ class _PostDetailsState extends State<PostDetails> {
                                                 ),
                                                 TextButton(
                                                     child: Text("Cancelar"),
+                                                    style: _style(),
                                                     onPressed: () {
                                                       Navigator.pop(
                                                           loadContext);
@@ -303,6 +317,12 @@ class _PostDetailsState extends State<PostDetails> {
             ],
           ));
     }
+  }
+
+  ButtonStyle _style() {
+    return ButtonStyle(
+      foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+    );
   }
 
   Widget _comments() {
@@ -336,10 +356,10 @@ class _PostDetailsState extends State<PostDetails> {
 //                 style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15)),
 //               Text(authorName,
 //                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-//             ]),   
+//             ]),
 //             Divider(),
 //             Text(postData['content'],
-//                 style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15), textAlign: TextAlign.justify)   
+//                 style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15), textAlign: TextAlign.justify)
 //           ],
 //         )
 // >>>>>>> develop
