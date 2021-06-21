@@ -53,6 +53,10 @@ flutter:
      - lib/src/images/reading.jpg
      - lib/src/images/logo.png
      - lib/src/images/gatito.jpg
+     - lib/src/images/gatito2.jpg
+     - lib/src/images/gatito3.jpg
+     - lib/src/images/gatito4.jpg
+     - lib/src/images/gatito5.jpg
      - lib/src/images/fondo.png
      - lib/src/images/libro2.png
      - lib/src/images/libro.png

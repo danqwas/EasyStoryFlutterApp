@@ -24,22 +24,24 @@ class _PostPageState extends State<PostPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('EasyStory'),
+        backgroundColor: Colors.black,
       ),
       drawer: MyDrawer(argument: widget.argument),
       body: Container(
-        padding: EdgeInsets.all(40.0),
-        child: ListView(children: <Widget>[
-          Divider(),
-          Divider(),
+        padding: EdgeInsets.all(20.0),
+        child: ListView(children: <Widget>[    
+                
           TextField(
             controller: postText,
             maxLines: 40,
             minLines: 10,
+            
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Escribe una publicación',
               hintText: 'Contenido',
               errorText: isValid ? null : 'La publicación no puede estar vacía',
+              
             ),
           ),
           Divider(),
@@ -53,8 +55,18 @@ class _PostPageState extends State<PostPage> {
                   Navigator.push(context,
                     MaterialPageRoute(builder: (context) => AddDetails(argument: widget.argument)),
                 );
+                
                 }
-              }, 
+              },
+              style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),                   
+                    minimumSize: MaterialStateProperty.all(Size(400, 50)),
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical:10,horizontal:10)), 
+                    shape: MaterialStateProperty.all(new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0),
+                          )),
+                    
+                  ), 
               child: const Text('Siguiente'),
             ),
           ),
@@ -82,9 +94,10 @@ class _AddDetailsState extends State<AddDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Agregar detalles'),
+        backgroundColor: Colors.black,
       ),
       body: Container(
-        padding: EdgeInsets.all(40.0),
+        padding: EdgeInsets.all(20.0),
         child: ListView(children: <Widget>[
         Divider(),
         TextField(
@@ -112,6 +125,15 @@ class _AddDetailsState extends State<AddDetails> {
         Center(
           child: ElevatedButton(
             onPressed: () { Navigator.pop(context); },
+            style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),                   
+                    minimumSize: MaterialStateProperty.all(Size(400, 50)),
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical:10,horizontal:10)), 
+                    shape: MaterialStateProperty.all(new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0),
+                          )),
+                    
+                  ), 
             child: const Text('Editar publicación')
           )
         ),
@@ -186,6 +208,15 @@ class _AddDetailsState extends State<AddDetails> {
                 ); 
               }
             },
+            style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),                   
+                    minimumSize: MaterialStateProperty.all(Size(400, 50)),
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical:10,horizontal:10)), 
+                    shape: MaterialStateProperty.all(new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(10.0),
+                          )),
+                    
+                  ), 
             child: const Text('Publicar')
           )
         ),

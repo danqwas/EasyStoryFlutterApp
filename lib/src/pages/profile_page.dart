@@ -45,6 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Mi Perfil'),
+        backgroundColor: Colors.black,
       ),
       drawer: MyDrawer(argument: widget.argument),
       body: ListView(

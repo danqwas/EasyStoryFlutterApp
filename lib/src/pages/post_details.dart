@@ -114,6 +114,7 @@ class _PostDetailsState extends State<PostDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Leer publicación"),
+        backgroundColor: Colors.black,
       ),
       body: Center(child: _postInfo()),
     );
@@ -309,6 +310,7 @@ class _PostDetailsState extends State<PostDetails> {
       return Center(child: CircularProgressIndicator());
     } else {
       return Container(
+// <<<<<<< feature-uf-04
         height: 300.0,
         width: 300.0,
         child: ListView.builder(
@@ -321,6 +323,26 @@ class _PostDetailsState extends State<PostDetails> {
             );
           },
         ),
+// =======
+//         padding: EdgeInsets.all(20.0),
+//         child: Column(
+//           children: [
+//             Divider(),
+//             Text(postData['title'],
+//                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
+//             Divider(),
+//             Row(children: <Widget>[
+//               Text("Escrito por: ",
+//                 style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15)),
+//               Text(authorName,
+//                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+//             ]),   
+//             Divider(),
+//             Text(postData['content'],
+//                 style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15), textAlign: TextAlign.justify)   
+//           ],
+//         )
+// >>>>>>> develop
       );
     }
   }

@@ -51,6 +51,7 @@ class BookmarkPage extends StatefulWidget {
      return Scaffold(
       appBar: AppBar(
         title: Text('Tus marcadores'),
+        backgroundColor: Colors.black,
       ),
       drawer: MyDrawer(argument: widget.argument),
       body: Center(
@@ -69,16 +70,22 @@ class BookmarkPage extends StatefulWidget {
       }
       else {
         return Container(
-          padding: EdgeInsets.all(40.0),
           child: ListView.builder(
             itemCount: dataBookmarks == null ? 0 : dataBookmarks.length,
             itemBuilder: (BuildContext context, i){
             return Card(
-                      elevation: 10.0,
+                      elevation: 1.0,
+                      margin: EdgeInsets.only(bottom:2.0,top:14.0,left:15.0,right:15.0),
+                      shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      ),
+                      semanticContainer: true,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
                       child: Column(
                         children: [
                           Image(
                             image: AssetImage('lib/src/images/gatito.jpg'),
+                            fit: BoxFit.fill,
                           ),
                           ListTile(
                             title: Text(dataBookmarks[i]['title']),

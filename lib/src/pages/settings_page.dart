@@ -9,6 +9,7 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('EasyStory'),
+        backgroundColor: Colors.black,
       ),
       drawer: MyDrawer(argument: argument),
       body: Center(
