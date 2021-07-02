@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'src/pages/feed_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
-  // var userId = settings.arguments;
-  var userId = 1;
+  var userId = settings.arguments;
+  // var userId = 1;
   switch (settings.name) {
     case 'login':
       return MaterialPageRoute(builder: (context) => LoginPage());
