@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-
 class MyDrawer extends StatelessWidget {
   final int argument;
-  const MyDrawer({ Key key, this.argument }) : super(key: key);
+  const MyDrawer({Key key, this.argument}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +11,7 @@ class MyDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(            
+          DrawerHeader(
             child: Image(
               image: AssetImage('lib/src/images/logo.png'),
             ),
@@ -52,6 +51,14 @@ class MyDrawer extends StatelessWidget {
             onTap: () => {
               Navigator.of(context).pop(),
               Navigator.pushNamed(context, 'hashtags', arguments: userId)
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.subscriptions_rounded),
+            title: Text('Mis suscripciones'),
+            onTap: () => {
+              Navigator.of(context).pop(),
+              Navigator.pushNamed(context, 'subscriptions', arguments: userId)
             },
           ),
           ListTile(

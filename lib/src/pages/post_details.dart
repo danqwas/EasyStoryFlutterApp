@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:easystory/src/pages/author_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:easystory/src/endpoints/endpoints.dart';
 import 'package:http/http.dart' as http;
@@ -98,7 +99,6 @@ class _PostDetailsState extends State<PostDetails> {
       }
     });
     commentsLoaded = true;
-    print("COMENTARIAZOS: $commentsData");
     return response.body.toString();
   }
 
@@ -139,6 +139,17 @@ class _PostDetailsState extends State<PostDetails> {
                 Text(authorName,
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                IconButton(
+                  icon: Icon(Icons.remove_red_eye),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AuthorProfilePage(
+                                argument: widget.argument,
+                                authorId: authorId)));
+                  },
+                ),
               ]),
               Divider(),
               Row(children: <Widget>[
@@ -330,7 +341,6 @@ class _PostDetailsState extends State<PostDetails> {
       return Center(child: CircularProgressIndicator());
     } else {
       return Container(
-// <<<<<<< feature-uf-04
         height: 300.0,
         width: 300.0,
         child: ListView.builder(
@@ -343,26 +353,6 @@ class _PostDetailsState extends State<PostDetails> {
             );
           },
         ),
-// =======
-//         padding: EdgeInsets.all(20.0),
-//         child: Column(
-//           children: [
-//             Divider(),
-//             Text(postData['title'],
-//                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
-//             Divider(),
-//             Row(children: <Widget>[
-//               Text("Escrito por: ",
-//                 style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15)),
-//               Text(authorName,
-//                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-//             ]),
-//             Divider(),
-//             Text(postData['content'],
-//                 style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15), textAlign: TextAlign.justify)
-//           ],
-//         )
-// >>>>>>> develop
       );
     }
   }

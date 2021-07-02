@@ -3,6 +3,7 @@ import 'package:easystory/src/endpoints/endpoints.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:easystory/src/pages/post_details.dart';
 
 String url = "https://easystory-backend.herokuapp.com/api/";
 List dataPost = [];
@@ -40,14 +41,12 @@ class _HashtagPageState extends State<HashtagPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hashtag List"),        
+        title: Text("Hashtag List"),
         backgroundColor: Colors.black,
       ),
-      body:            
-      ListView(         
+      body: ListView(
         scrollDirection: Axis.vertical,
         shrinkWrap: false,
-        
         children: <Widget>[
           GridView.count(
             padding: EdgeInsets.all(10),
@@ -58,38 +57,33 @@ class _HashtagPageState extends State<HashtagPage> {
             crossAxisSpacing: 5,
             mainAxisSpacing: 5,
             children: List.generate(dataHashtags.length, (index) {
-              
               return Center(
-                
                 child: ElevatedButton(
                   onPressed: () {
                     dataPost = [];
                     hashtagId = index + 1;
                     Navigator.push(
                       context,
-                      
                       MaterialPageRoute(
-                          builder: (context) => PostHashtagsDetails()),
-                    );                    
+                          builder: (context) =>
+                              PostHashtagsDetails(argument: widget.argument)),
+                    );
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.grey.shade300),                   
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.grey.shade300),
                     minimumSize: MaterialStateProperty.all(Size(188, 136)),
-                    padding: MaterialStateProperty.all(EdgeInsets.all(20)), 
+                    padding: MaterialStateProperty.all(EdgeInsets.all(20)),
                     shape: MaterialStateProperty.all(new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(10.0),
-                          )),
-                    
+                      borderRadius: new BorderRadius.circular(10.0),
+                    )),
                   ),
-                  
-                  child: 
-                  Text(
+                  child: Text(
                     ('#' + dataHashtags[index]['name']).toLowerCase(),
                     style: TextStyle(
-                        color: Colors.black,
-                      ),
+                      color: Colors.black,
+                    ),
                   ),
-                  
                 ),
               );
             }),
@@ -101,6 +95,9 @@ class _HashtagPageState extends State<HashtagPage> {
 }
 
 class PostHashtagsDetails extends StatefulWidget {
+  final int argument;
+  const PostHashtagsDetails({Key key, this.argument}) : super(key: key);
+
   @override
   _PostHashtagsDetailsState createState() => _PostHashtagsDetailsState();
 }
@@ -132,41 +129,49 @@ class _PostHashtagsDetailsState extends State<PostHashtagsDetails> {
         title: Text('Hashtag #' + dataHashtags[hashtagId - 1]['name']),
         backgroundColor: Colors.black,
       ),
-      
-      body: Container(                    
+      body: Container(
           child: ListView.builder(
-            itemCount: dataPost == null ? 0 : dataPost.length,            
-            itemBuilder: (BuildContext context, i) {
-              return Card(
-                elevation: 1.0,
-                margin: EdgeInsets.only(bottom:2.0,top:14.0,left:15.0,right:15.0),
-                shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+        itemCount: dataPost == null ? 0 : dataPost.length,
+        itemBuilder: (BuildContext context, i) {
+          return Card(
+            elevation: 1.0,
+            margin: EdgeInsets.only(
+                bottom: 2.0, top: 14.0, left: 15.0, right: 15.0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            semanticContainer: true,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Column(
+              children: [
+                Image(
+                  image: AssetImage('lib/src/images/gatito.jpg'),
+                  fit: BoxFit.fill,
                 ),
-                semanticContainer: true,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: Column(
+                ListTile(
+                  title: Text(dataPost[i]['title']),
+                  subtitle: Text(dataPost[i]['content']),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Image(
-                      image: AssetImage('lib/src/images/gatito.jpg'),
-                      fit: BoxFit.fill,
-                    ),
-                    ListTile(
-                      title: Text(dataPost[i]['title']),
-                      subtitle: Text(dataPost[i]['content']),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(onPressed: () {}, child: Text('Detalles')),
-                        TextButton(onPressed: () {}, child: Text('Leer')),
-                      ],
-                    )
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PostDetails(
+                                      argument: widget.argument,
+                                      postId: dataPost[i]['id'])));
+                        },
+                        child: Text('Leer')),
                   ],
-                ),
-              );
-            },
-          )),
+                )
+              ],
+            ),
+          );
+        },
+      )),
     );
   }
 }

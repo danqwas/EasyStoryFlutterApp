@@ -1,4 +1,3 @@
-import 'package:easystory/src/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:easystory/src/pages/post_details.dart';
@@ -6,12 +5,14 @@ import 'package:easystory/src/endpoints/endpoints.dart';
 import 'dart:convert';
 import 'dart:math';
 
-class ProfilePage extends StatefulWidget {
+class AuthorProfilePage extends StatefulWidget {
   final int argument;
-  const ProfilePage({Key key, this.argument}) : super(key: key);
+  final int authorId;
+  const AuthorProfilePage({Key key, this.argument, this.authorId})
+      : super(key: key);
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _AuthorProfilePageState createState() => _AuthorProfilePageState();
 }
 
 dynamic gatito = [
@@ -24,9 +25,10 @@ dynamic gatito = [
 
 final _random = new Random();
 
-class _ProfilePageState extends State<ProfilePage> {
+class _AuthorProfilePageState extends State<AuthorProfilePage> {
   bool isLoaded = false;
   bool postsLoaded = false;
+  bool isSubscribed = false;
   // Map<String, dynamic> dataUser = {
   //   'username': '',
   //   'firstName': '',
@@ -34,9 +36,10 @@ class _ProfilePageState extends State<ProfilePage> {
   // };
   var dataUser;
   List dataPosts = [];
+  Map subBody = new Map();
   Future<String> getPosts() async {
     var postResponse = await http.get(
-        Uri.parse(url() + "users/${widget.argument}/posts"),
+        Uri.parse(url() + "users/${widget.authorId}/posts"),
         headers: headers());
     setState(() {
       var postExtract = json.decode(postResponse.body);
@@ -46,6 +49,25 @@ class _ProfilePageState extends State<ProfilePage> {
     postsLoaded = true;
     print(dataPosts);
     return postResponse.body.toString();
+  }
+
+  Future<String> getSubs() async {
+    var subsResponse = await http.get(
+        Uri.parse(url() + "users/${widget.argument}/subscriptions"),
+        headers: headers());
+    setState(() {
+      var subsExtract = json.decode(subsResponse.body);
+      var subsData = subsExtract['content'];
+      print("SUSCRIPCIONZASAS:");
+      print(subsData);
+      for (var item in subsData) {
+        if (item['subscribedId'] == widget.authorId) {
+          isSubscribed = true;
+          break;
+        }
+      }
+    });
+    return subsResponse.body.toString();
   }
 
   Future<String> getUserById(int id) async {
@@ -63,7 +85,8 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    getUserById(widget.argument);
+    getSubs();
+    getUserById(widget.authorId);
     getPosts();
   }
 
@@ -71,15 +94,17 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mi Perfil'),
+        title: Text('Perfil de usuario'),
         backgroundColor: Colors.black,
       ),
-      drawer: MyDrawer(argument: widget.argument),
+      // drawer: MyDrawer(argument: widget.argument),
       body: SingleChildScrollView(
           physics: ScrollPhysics(),
           child: Column(children: [
             _profilePicture(),
             _userDescription(),
+            Divider(),
+            _subscribeButton(),
             Divider(),
             Center(
               child: Text(
@@ -92,6 +117,55 @@ class _ProfilePageState extends State<ProfilePage> {
           ])),
     );
     // );
+  }
+
+  Widget _subscribeButton() {
+    return ElevatedButton(
+      onPressed: () async {
+        showDialog<void>(
+          context: context,
+          builder: (BuildContext context) =>
+              AlertDialog(title: Center(child: CircularProgressIndicator())),
+        );
+        if (!isSubscribed) {
+          subBody = {
+            'userId': widget.argument,
+            'subscribedId': widget.authorId
+          };
+          var body = json.encode(subBody);
+          http.Response response = await http.post(
+              Uri.parse(url() +
+                  "users/${widget.argument}/subscriptions/${widget.authorId}"),
+              headers: headers(),
+              body: body);
+          print(response);
+
+          ;
+        } else {
+          http.Response response = await http.delete(
+              Uri.parse(url() +
+                  "users/${widget.argument}/subscriptions/${widget.authorId}"),
+              headers: headers());
+          print(response);
+        }
+        setState(() {
+          isSubscribed = !isSubscribed;
+          getSubs();
+        });
+
+        Navigator.pop(context);
+      },
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+        minimumSize: MaterialStateProperty.all(Size(50, 50)),
+        padding: MaterialStateProperty.all(
+            EdgeInsets.symmetric(vertical: 0.5, horizontal: 10)),
+        shape: MaterialStateProperty.all(new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(10.0),
+        )),
+      ),
+      child: isSubscribed ? Text('Desuscribirse') : Text('Suscribirse'),
+    );
   }
 
   Widget _userPosts() {
